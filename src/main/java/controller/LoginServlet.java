@@ -6,14 +6,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Teacher;
+import storage.DataStorage;
 
 import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-
-    private static final String USERNAME = "bouchiba";
-    private static final String PASSWORD = "bouchiba123";
     private static final int SESSION_TIMEOUT = 30 * 60;
 
     @Override
@@ -27,11 +26,17 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
+        Teacher teacher = DataStorage.getInstance().getTeachers().stream()
+                .filter(u ->u.getUsername().equals(username) && u.getPassword().equals(password))
+                .findFirst()
+                .orElse(null);
+
 
         // Check credentials
-        if (USERNAME.equals(username) && PASSWORD.equals(password)) {
+        if (teacher != null) {
             HttpSession session = request.getSession();
             session.setAttribute("authenticated", true);
+            session.setAttribute("teacher", teacher);
             session.setMaxInactiveInterval(SESSION_TIMEOUT);
             response.sendRedirect("studentList.jsp");
         } else {

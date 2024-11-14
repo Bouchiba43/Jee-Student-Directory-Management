@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bouchiba
-  Date: 11/13/24
-  Time: 2:43 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +12,6 @@
 <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
     <h2 class="text-3xl font-semibold text-gray-700 text-center mb-6">Teacher Login</h2>
 
-    <!-- Display Error or Success Messages -->
     <c:if test="${not empty error}">
         <div id="error-message" class="hidden mb-4 p-4 bg-red-100 text-red-800 border border-red-400 rounded-md">
             <p>${error}</p>
@@ -32,7 +24,6 @@
         </div>
     </c:if>
 
-    <!-- Login Form -->
     <form action="login" method="post" class="space-y-6">
         <div>
             <label class="block text-gray-600 text-sm font-medium mb-1" for="username">Username</label>
@@ -57,14 +48,13 @@
     </p>
 
     <div class="mt-6 text-center">
-        <a href="forgot-password.jsp" class="text-blue-500 hover:text-blue-700 text-sm">Forgot your password?</a>
+        <a href="javascript:void(0);" onclick="showPopup()" class="text-blue-500 hover:text-blue-700 text-sm">Forgot your password?</a><br>
+        <a href="index.jsp" class="text-blue-500 hover:text-blue-700 text-sm" >return to homepage</a>
     </div>
 </div>
 
-<!-- Add JavaScript to reveal error and success messages -->
 <script>
     window.onload = function() {
-        // Check if the error or success message exists and make them visible if present
         if (document.getElementById("error-message") && document.getElementById("error-message").innerText.trim() !== "") {
             document.getElementById("error-message").classList.remove("hidden");
         }
@@ -73,9 +63,11 @@
             document.getElementById("success-message").classList.remove("hidden");
         }
     };
+
+    function showPopup() {
+        alert("It's your problem not mine");
+    }
 </script>
 
 </body>
 </html>
-
-
